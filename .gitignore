@@ -1,0 +1,28 @@
+# Compiled class files
+*.class
+
+# Maven target folder
+/target/
+
+# Logs
+*.log
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+
+# VS Code settings
+/.vscode/
+
+# Eclipse
+/.classpath
+/.project
+/.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# JSON database or other runtime files (optional, if you don't want to track users)
+data/userDB.json
