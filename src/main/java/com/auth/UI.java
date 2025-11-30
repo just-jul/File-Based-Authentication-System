@@ -4,20 +4,25 @@ import java.util.Scanner;
 
 public class UI {
     private Scanner scanner;
+    private UserDatabase db;
 
-    public UI(){
+    public UI(UserDatabase db){
         this.scanner = new Scanner(System.in);
+        this.db = db;
     }
     
     public void start(){
-        System.out.println("-----*-----");
-        System.out.println("1. Register");
-        System.out.println("2. Login");
-        System.out.println("3. Change username");
-        System.out.println("4. Change password");
-        System.out.println("5. Exit");
+    
         
         while (true) {
+
+            System.out.println();
+            System.out.println("-----*-----");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Change username");
+            System.out.println("4. Change password");
+            System.out.println("5. Exit");
 
             int choice = Integer.valueOf(scanner.nextLine());
 
@@ -52,6 +57,9 @@ public class UI {
                     String username = scanner.nextLine();
 
                     // if username exists, proceed
+                    // findUser() 
+
+
 
                     System.out.println("Password: ");
                     String password = scanner.nextLine();
