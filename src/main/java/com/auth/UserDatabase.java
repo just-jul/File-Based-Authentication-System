@@ -27,12 +27,17 @@ public class UserDatabase {
     }
 
     // saving user into JSON file 
-    // works!
+    // 
     public void save(){
+        JSONArray jsonArray = new JSONArray();
+        for(User u : users){
+            JSONObject obj = new JSONObject();
+            obj.put("username", u.getUsername());
+            obj.put("hashedPassword", u.getHashedPswd());
+            jsonArray.put(obj);
+        }
         try(FileWriter file = new FileWriter(JSONFILEPATH)){
-            file.write(users.toString());
-            System.out.println("Successfully Copied JSON Object to File...");
-            System.out.println("\nJSON Object: " + users);
+            file.write(jsonArray.toString());
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -62,11 +67,12 @@ public class UserDatabase {
         }
     }
 
-    public JSONObject findUser(String username){
+    // change return from JSONObject to User
+    public User findUser(String username){
         for(Object user : this.users){
-            JSONObject person = (JSONObject) user;
+            User person = (User) user;
 
-            if (person.get("username").equals(username)){
+            if (person.getUsername().equals(username)){
                 return person;
             }
         }

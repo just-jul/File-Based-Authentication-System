@@ -49,6 +49,7 @@ public class UI {
                         }else{
                             String hashed = PasswordUtil.hash(password);
                             User user = new User(username, hashed);
+                            db.addUser(user);
                             break;
                         }
                     }
@@ -60,7 +61,8 @@ public class UI {
 
                     // if username exists, proceed
                     // findUser() 
-                    JSONObject foundUser = db.findUser(username);
+                    // change JSONObject into User 
+                    User foundUser = db.findUser(username);
 
                     if(foundUser == null){
                         System.out.println("User not found.");
@@ -76,10 +78,14 @@ public class UI {
                     // if yes -> display "Logged in!"
                     // if not, ask again - max 3 tries 
 
-                    String userPassword = (String) foundUser.get("password");
+                    String userPassword = foundUser.getHashedPswd();
 
+                    System.out.println();
+                    
                     if(userPassword.equals(hashed)){
-                        
+                        foundUser.login();
+                    }else{
+                        System.out.println("Incorrect password.");
                     }
                     
                     break;
