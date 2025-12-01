@@ -6,21 +6,23 @@ import org.json.JSONObject;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class UserDatabase {
     private static final String JSONFILEPATH = "data/userDB.json";
-    private JSONArray users;
+    // changed JSONArray to ArrayList 
+    private ArrayList<User> users;
 
     public UserDatabase(){
-        this.users = new JSONArray();
+        this.users = new ArrayList<>();
         this.loadFile();
     }
 
     // add user
     public void addUser(User user){
-        this.users.put(user.toJSON());
+        this.users.add(user);
         save();
     }
 
@@ -36,11 +38,24 @@ public class UserDatabase {
         }
     }
 
+    // loads the content of JSON data into memory 
     public void loadFile(){
         try {
             String fileContent = new String(Files.readAllBytes(Paths.get(JSONFILEPATH)));
 
-            this.users = new JSONArray(fileContent);;
+            JSONArray jsonArray = new JSONArray(fileContent);
+
+            for(Object o : jsonArray){
+                JSONObject person = (JSONObject) o;
+
+                String username = (String) person.get("username");
+
+                String hashedPassword = (String) person.get("hashedPassword");
+
+                User user = new User(username, hashedPassword);
+
+                users.add(user);
+            }
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -56,8 +71,6 @@ public class UserDatabase {
             }
         }
         return null;
-
-
     }
 }
 

@@ -10,15 +10,8 @@ public class User {
         this.username = username;
         this.hashedPassword = password;
     }
-
-
-    public void login(String username, String pswd){
-        // if username exists, proceed
-
-
-        // if given password matches the user's password, display login message
-
-
+    public void login(){
+        System.out.println("Logged in!");
     }
     public String getUsername(){
         return this.username; 

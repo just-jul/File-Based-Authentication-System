@@ -2,6 +2,8 @@ package com.auth;
 
 import java.util.Scanner;
 
+import org.json.JSONObject;
+
 public class UI {
     private Scanner scanner;
     private UserDatabase db;
@@ -58,17 +60,27 @@ public class UI {
 
                     // if username exists, proceed
                     // findUser() 
+                    JSONObject foundUser = db.findUser(username);
 
-
+                    if(foundUser == null){
+                        System.out.println("User not found.");
+                    }
 
                     System.out.println("Password: ");
                     String password = scanner.nextLine();
 
+                    // hashing input password
                     String hashed = PasswordUtil.hash(password);
+
                     // check if the hashed password (entered) matches the one in the database
                     // if yes -> display "Logged in!"
                     // if not, ask again - max 3 tries 
 
+                    String userPassword = (String) foundUser.get("password");
+
+                    if(userPassword.equals(hashed)){
+                        
+                    }
                     
                     break;
                 }
